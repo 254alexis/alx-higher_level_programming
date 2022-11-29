@@ -1,28 +1,24 @@
 #include "lists.h"
-
 /**
- * check_cycle - list
- * @head:  type list
- * Return: 0 if there is no cycle, 1 if there is a cycle
- */
-int check_cycle(listint_t *head)
+*check_cycle - checks whether there is a loop
+*utilized floyed-cycle algorithm
+*@list: head of the linked least
+*Return: 1 if there is a loop, 0 if there isn't
+*/
+int check_cycle(listint_t *list)
 {
-	int *node1, *node2;
-
-	if (head == NULL)
-		return (0);
-
-	while (head != NULL)
-	{
-		node1 = (int *)&head;
-		node2 = (int *)&head->next;
-		if (head->next == NULL)
-			return (0);
-
-		if (*node1 - *node2 <= 0)
-			return (1);
-
-		head = head->next;
-	}
-	return (0);
+listint_t *fast = NULL, *slow = NULL;
+if (!list)
+return (0);
+fast = list->next;
+slow = list;
+while (fast && fast->next)
+{
+/*if there is a loop they would crush*/
+if (fast == slow)
+return (1);
+fast = fast->next->next;
+slow = slow->next;
+}
+return (0);
 }
